@@ -6,6 +6,8 @@ gem 'sinatra'
 gem 'shotgun'
 gem 'data_mapper'
 gem 'dm-postgres-adapter'
+gem 'guard'
+gem 'guard-rspec'
 
 group :development, :test do
   gem 'rspec'
