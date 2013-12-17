@@ -29,7 +29,7 @@ feature "User browses the list of links" do
     expect(page).to have_content("Google")
     expect(page).to have_content("Bing")
   end
-  
+
 end
 
 feature "User adds a new link" do
@@ -61,6 +61,33 @@ feature "User adds a new link" do
       fill_in 'tags', :with => tags.join(' ')
       click_button 'Add link'
     end
+  end
+
+  feature "User signs up" do
+
+    scenario "when being logged out" do
+      lambda { sign_up }.should change(User, :count).by(1)
+      # visit '/users/new'
+      # puts page.body.inspect
+      # expect(page.current_path).to eq ("/users/new")
+      expect(page).to have_content("Welcome, hello@example.com")
+      expect(User.first.email).to eq("hello@example.com")
+    end
+
+    scenario "with a password that doesn't match" do
+      lambda { sign_up('a@a.com', 'pass', 'wrong')}.should change(User, :count).by(0)
+    end
+
+    def sign_up(email = "hello@example.com",
+                password = "oranges",
+                password_confirmation = "oranges")
+      visit '/users/new'
+      fill_in :email, :with => email
+      fill_in :password, :with => password
+      fill_in :password_confirmation, :with => password_confirmation
+      click_button "Sign up"
+    end
+
   end
 
 
