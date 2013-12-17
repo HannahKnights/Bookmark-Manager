@@ -1,5 +1,8 @@
 require 'sinatra'
 require 'data_mapper'
+require 'rack-flash'
+
+use Rack::Flash
 
 env = ENV["RACK_ENV"] || "development"
 DataMapper.setup(:default, "postgres://localhost/bookmark_manager_#{env}")
@@ -39,18 +42,21 @@ get '/tags/:text' do
 end
 
 get '/users/new' do
+  @user = User.new
   erb :"users/new"
 end
 
 post '/users' do
-  email = params["email"]
-  password= params["password"]
-  password_confirmation = params["password_confirmation"]
-  user = User.create(:email => email,
-                    :password => password,
-                    :password_confirmation => password_confirmation)
-  session[:user_id] = user.id
-  redirect '/'
+  @user = User.create(:email => params["email"],
+                    :password => params["password"],
+                    :password_confirmation => params["password_confirmation"])
+  if @user.save
+    session[:user_id] = @user.id
+    redirect '/'
+  else
+    flash[:notice] = "Sorry, your password doesn't match"
+    erb :"users/new"
+  end
 end
 
 helpers do
