@@ -8,6 +8,7 @@ gem 'data_mapper'
 gem 'dm-postgres-adapter'
 gem 'guard'
 gem 'guard-rspec'
+gem 'bcrypt-ruby'
 
 group :development, :test do
   gem 'rspec'
