@@ -1,6 +1,7 @@
 require 'sinatra'
 require 'data_mapper'
 require 'rack-flash'
+require 'sinatra/partial'
 
 use Rack::Flash
 
@@ -10,12 +11,15 @@ DataMapper.setup(:default, "postgres://localhost/bookmark_manager_#{env}")
 require './lib/link'
 require './lib/tag'
 require './lib/user'
+require_relative 'helpers/application'
 
 DataMapper.finalize
 DataMapper.auto_upgrade!
 
 enable :sessions
 set :session_secret, 'super secret'
+
+set :partial_template_engine, :erb
 
 
 get '/' do
@@ -47,7 +51,7 @@ get '/users/new' do
 end
 
 post '/users' do
-  @user = User.create(:email => params["email"],
+  @user = User.new(:email => params["email"],
                     :password => params["password"],
                     :password_confirmation => params["password_confirmation"])
   if @user.save
@@ -59,12 +63,25 @@ post '/users' do
   end
 end
 
-helpers do
+get '/sessions/new' do
+  erb :"sessions/new"
+end
 
-  def current_user
-    @current_user ||= User.get(session[:user_id]) if session[:user_id]
+post '/sessions' do
+  email, password = params[:email], params[:password]
+  user = User.authenticate(email, password)
+  if user
+    session[:user_id] = user.id
+    redirect to('/')
+  else
+    flash[:error] = ["The email or password are incorrect"]
+    erb :"sessions/new"
   end
+end
 
+delete '/sessions' do
+  session[:user_id] = nil
+  redirect to '/'
 end
 
 
