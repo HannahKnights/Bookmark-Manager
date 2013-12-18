@@ -1,10 +1,11 @@
 <div id='flash-container'>
-  <% if flash[:notice] %>
+  
+  <% if flash[:notice] %>  
   <div id="flash-notice">
     <%= flash[:notice] %>
   </div>
   <% end %>
-
+  
   <% if flash[:errors] && !flash[:errors].empty? %>
   <ul id="flash-errors">
     <% flash[:errors].each do |error| %>
