@@ -52,9 +52,9 @@ post '/users' do
                     :password_confirmation => params["password_confirmation"])
   if @user.save
     session[:user_id] = @user.id
-    redirect '/'
+    redirect to('/')
   else
-    flash[:notice] = "Sorry, your password doesn't match"
+    flash.now[:errors] = @user.errors.full_messages
     erb :"users/new"
   end
 end
