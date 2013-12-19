@@ -50,6 +50,23 @@ include SessionHelpers
       expect(page).not_to have_content("Welcome, test@test.com")
     end
 
+    scenario "with incorrect credentials they receive an error" do
+      visit 'sessions/new'
+      sign_in('test@test.com', 'wrong')
+      expect(page).to have_content("The email or password are incorrect")
+    end
+
+    scenario "forgetting their password" do
+      visit'/sessions/new'
+      expect(page).to have_content("Forgotten password?")
+      forgotten_password('test@test.com')
+      expect(User.password_token).not_to be('No Token')
+      # User.should_receive(:send_email)
+    end
+
+    scenario "receiving an email" do
+    end
+
   end
 
   feature "User signs out" do

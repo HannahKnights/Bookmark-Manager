@@ -15,4 +15,11 @@ module SessionHelpers
     click_button "Sign up"
   end
 
+  def forgotten_password(email="hellp@example.com")
+    visit '/sessions/new'
+    click_link('Forgotten password?')
+    fill_in :email, :with => email
+  end
+
+
 end
