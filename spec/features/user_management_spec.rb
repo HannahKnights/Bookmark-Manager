@@ -60,11 +60,17 @@ include SessionHelpers
       visit'/sessions/new'
       expect(page).to have_content("Forgotten password?")
       forgotten_password('test@test.com')
-      expect(User.password_token).not_to be('No Token')
+      user = User.first
+      expect(user.password_token).not_to be(nil)
       # User.should_receive(:send_email)
     end
 
-    scenario "receiving an email" do
+    scenario "generating a password token" do
+      visit'/sessions/new'
+      expect(page).to have_content("Forgotten password?")
+      forgotten_password('test@test.com')
+      user = User.first
+      expect(user.password_token.length).to eq(64)
     end
 
   end

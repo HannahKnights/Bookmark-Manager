@@ -29,19 +29,13 @@ class User
     end
   end
 
-  # def password_token(email)
-  #   user = User.first(:email => email)
-  #   user.password_token = Array.new(64) {(65 + rand(58)).chr}.join
-  #   user.password_token_timestamp = Time.now
-  #   user.save
-  # end
 
-  # def send_message(email)
-  #   # :from =>
-  #   # :to => 
-  #   # :subject => "Password Reset"
-  #   # :text => "Please "
-  # end
+  def self.send_email(email)
+    # :from =>
+    # :to => 
+    # :subject => "Password Reset"
+    # :text => "To reset your password <a href='localhost:4567/users/reset_password/#{self.password_token}'>click here</a> "
+  end
 
 
 end
