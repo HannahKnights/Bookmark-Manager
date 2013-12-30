@@ -1,5 +1,7 @@
 get '/tags/:text' do
-  tag = Tag.first(:text => params[:text])
+  text = params[:text].to_s
+  tag = Tag.first(:text => text)
   @links = tag ? tag.links : []
+  @tags = Tag.all
   erb :index
 end
