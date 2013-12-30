@@ -1,6 +1,12 @@
 require 'spec_helper'
 
 feature "User browses the list of links" do
+
+  before(:each) do
+      User.create(:email => 'test@test.com',
+                  :password => 'test',
+                  :password_confirmation => 'test')
+    end
   
   before(:each) {
     Link.create(:url => "http://www.makersacademy.com",

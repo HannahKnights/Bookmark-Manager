@@ -1,9 +1,21 @@
 <h1>Welcome to bookmark manager</h1>
 
+<div id="user_management">
+<a href='/users/new'>Sign up</a>
+<a href='/sessions/new'>Sign in</a>
+</div>
+
 Current links:
 <ul>
   <% @links.each do |link| %>
     <li><a href="<%= link.url %>"><%= link.title %></a></li>
+  <% end %>
+</ul>
+
+Available tags:
+<ul>
+  <% @tags.each do |tag| %>
+    <li><%= tag.text %></li>
   <% end %>
 </ul>
 
