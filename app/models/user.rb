@@ -10,10 +10,11 @@ class User
   include DataMapper::Resource
 
   # has n, :tags, :through => Resource
-  # has n, :links, :through => Resource
+  has n, :links, :through => Resource
 
   property :id, Serial
   property :email, String, :unique => true, :message => "This email is already taken"
+  property :username, String
   property :password_digest, Text
   property :password_token, Text
   property :password_token_timestamp, Time

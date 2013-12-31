@@ -1,4 +1,8 @@
 require 'spec_helper'
+require_relative 'helpers/session'
+
+include SessionHelpers
+
 
 feature "User browses the list of links" do
 
@@ -60,15 +64,14 @@ feature "User adds a new link" do
     expect(link.tags.map(&:text)).to include("ruby")
   end
 
-  def add_link(url, title, tags = [])
-    within('#new-link') do
-      fill_in 'url', :with => url
-      fill_in 'title', :with => title
-      fill_in 'tags', :with => tags.join(' ')
-      click_button 'Add link'
-    end
+  xscenario "without a url" do
+    visit '/'
+    add_link(nil,
+            "Makers Academy", 
+            ['educaiton'])
+    expect(page).to have_content("The URL and Title fields must be filled in")
   end
-  
+
 end
 
 
