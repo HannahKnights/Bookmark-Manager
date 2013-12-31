@@ -11,6 +11,7 @@ Current links:
     <li><a href='<%= link.url %>'><%= link.title %></a>
     <% link_id = link.id %>
     <%= LinkUser.all.count(:link_id => link.id) %>
+    <%= User.first(:id => link.user_id).email %>
     <form action='/favourites' method='post'>
     <input type='hidden' name='favourite_link' value='<%= link.id %>'>
     <input type='submit' value='Add to favourites'>
