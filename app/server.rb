@@ -14,6 +14,7 @@ require_relative 'controllers/tags'
 require_relative 'controllers/links'
 require_relative 'controllers/application'
 require_relative 'controllers/password_reset'
+require_relative 'controllers/favourites'
 require_relative 'data_mapper_setup'
 
 

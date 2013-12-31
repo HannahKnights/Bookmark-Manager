@@ -1,0 +1,9 @@
+
+My Favourite Links:
+
+<ul>
+  <% @favourites.each do |favourite| %>
+    <% link = Link.first(:id => favourite.link_id) %>
+    <li><a href='<%= link.url %>'><%= link.title %></a></li>
+  <% end %>
+</ul>

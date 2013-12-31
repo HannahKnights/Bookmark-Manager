@@ -8,7 +8,14 @@
 Current links:
 <ul>
   <% @links.each do |link| %>
-    <li><a href="<%= link.url %>"><%= link.title %></a></li>
+    <li><a href='<%= link.url %>'><%= link.title %></a>
+    <% link_id = link.id %>
+    <%= LinkUser.all.count(:link_id => link.id) %>
+    <form action='/favourites' method='post'>
+    <input type='hidden' name='favourite_link' value='<%= link.id %>'>
+    <input type='submit' value='Add to favourites'>
+    </form>
+    </li>
   <% end %>
 </ul>
 
@@ -26,6 +33,8 @@ Available tags:
     <input type="text" name="url" placeholder="URL">
 
     <input type="text" name="title" placeholder="Title">
+
+    <input type="text" name="description" placeholder="Description">
 
     <input type="text" name="tags" placeholder="Tags">
 
