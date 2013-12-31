@@ -7,3 +7,20 @@ My Favourite Links:
     <li><a href='<%= link.url %>'><%= link.title %></a></li>
   <% end %>
 </ul>
+
+My Links:
+
+<ul>
+  <% @links.each do |link| %>
+    <li><a href='<%= link.url %>'><%= link.title %></a></li>
+  <% end %>
+</ul>
+
+My Tags:
+
+<ul>
+  <% @my_tags.each do |my_tag| %>
+    <% tag = Tag.first(:id => my_tag.tag_id) %>
+    <li><%= tag.text %></li>
+  <% end %>
+</ul>

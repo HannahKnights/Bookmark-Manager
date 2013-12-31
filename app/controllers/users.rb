@@ -18,6 +18,8 @@ end
 
 get '/my_profile' do
   user = session[:user_id]
+  @links = Link.all(:user_id => user)
   @favourites = LinkUser.all(:user_id => user)
+  @my_tags = LinkTag.all(:link_user_id => user)
   erb :"users/my_profile"
 end

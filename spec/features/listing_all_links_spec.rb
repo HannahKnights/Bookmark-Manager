@@ -43,6 +43,15 @@ feature "User browses the list of links" do
     expect(page).to have_content("Test")
   end
 
+  scenario "which displays the user who submitted it" do
+    sign_up
+    sign_in('test@test.com', 'test')
+    add_link("http://makersacademy.com/",
+              "Makers Academy",
+              ['education', 'ruby'])
+    expect(page).to have_content("Makers Academy 0 test@test.com")
+  end
+
 end
 
 feature "User adds a new link" do
