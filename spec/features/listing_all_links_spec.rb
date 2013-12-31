@@ -11,33 +11,36 @@ feature "User browses the list of links" do
                   :password => 'test',
                   :password_confirmation => 'test')
     end
-  
-  before(:each) {
-    Link.create(:url => "http://www.makersacademy.com",
-                :title => "Makers Academy", 
-                :tags => [Tag.first_or_create(:text => 'education')])
-    Link.create(:url => "http://www.google.com", 
-                :title => "Google", 
-                :tags => [Tag.first_or_create(:text => 'search')])
-    Link.create(:url => "http://www.bing.com", 
-                :title => "Bing", 
-                :tags => [Tag.first_or_create(:text => 'search')])
-    Link.create(:url => "http://www.code.org", 
-                :title => "Code.org", 
-                :tags => [Tag.first_or_create(:text => 'education')])
-  }
 
-  scenario "when opening the home page" do
+  scenario "when signed in" do
+    sign_in('test@test.com', 'test')
     visit '/'
+    expect(page).to have_content("Welcome, test@test.com")
+    fill_in :url, :with => "http://makersacademy.com"
+    fill_in :title, :with => "Makers Academy"
+    fill_in :description, :with => "Code School"
+    fill_in :tags, :with => "code, ruby"
+    click_button "Add link"
     expect(page).to have_content("Makers Academy")
   end
 
+  scenario "when signed out" do
+    visit '/'
+    expect(page).not_to have_content("Add Link")
+  end
+
   scenario "filtered by a tag" do
-    visit '/tags/search'
+    sign_up
+    sign_in('test@test.com', 'test')
+    add_link("http://makersacademy.com/",
+              "Makers Academy",
+              ['education', 'ruby'])
+    add_link("http://test.co.uk",
+              "Test",
+              ['test'])
+    visit '/tags/test'
     expect(page).not_to have_content("Makers Academy")
-    expect(page).not_to have_content("Code.org")
-    expect(page).to have_content("Google")
-    expect(page).to have_content("Bing")
+    expect(page).to have_content("Test")
   end
 
 end
@@ -45,6 +48,8 @@ end
 feature "User adds a new link" do
 
   scenario "when browsing the homepage" do
+    sign_up
+    sign_in('test@test.com', 'test')
     expect(Link.count).to eq(0)
     visit '/'
     add_link("http://www.makersacademy.com/", "Makers Academy")
@@ -55,6 +60,8 @@ feature "User adds a new link" do
   end
 
   scenario "with a few tags" do
+    sign_up
+    sign_in('test@test.com', 'test')
     visit '/'
     add_link("http://makersacademy.com/",
               "Makers Academy",
@@ -65,6 +72,8 @@ feature "User adds a new link" do
   end
 
   xscenario "without a url" do
+    sign_up
+    sign_in('test@test.com', 'test')
     visit '/'
     add_link(nil,
             "Makers Academy", 
