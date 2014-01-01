@@ -22,7 +22,7 @@ feature "User's profile page" do
             "Test",
             ['test'])
     click_link "My Favourites"
-    expect(page).to have_content("My Links: Makers Academy Test")
+    expect(page).to have_content("My Links: Makers Academy")
   end
   
 end
