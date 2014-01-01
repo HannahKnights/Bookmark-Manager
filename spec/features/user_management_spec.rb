@@ -45,7 +45,17 @@ include SessionHelpers
       fill_in :username, :with => 'Test'
       fill_in :email, :with => 'test@test.com'
       click_button "Sign up"
-      expect(page).to have_content("Please enter a password")
+      expect(page).to have_content("Please enter a valid password")
+    end
+
+    scenario "with a password that is in an invalid format" do
+      visit '/users/new'
+      fill_in :username, :with => 'Test'
+      fill_in :email, :with => 'test@test.com'
+      fill_in :password, :with => 'test'
+      fill_in :password_confirmation, :with => 'test'
+      click_button "Sign up"
+      expect(page).to have_content("Please enter a valid password")
     end
 
 

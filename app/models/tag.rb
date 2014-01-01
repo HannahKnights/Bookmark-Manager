@@ -6,7 +6,7 @@ class Tag
   # has 1, :user, :through => Resource 
 
   property :id, Serial
-  property :text, String, :required => true
+  property :text, String
   # property :user_id, Serial
 
 end
