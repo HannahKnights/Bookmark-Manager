@@ -14,7 +14,15 @@ include SessionHelpers
     scenario "with an email that is already registered" do
       lambda { sign_up }.should change(User, :count).by(1)
       lambda { sign_up }.should change(User, :count).by(0)
-      expect(page).to have_content("This email is already taken")
+    end
+
+    scenario "with an email that is an incorrect format" do
+      visit '/users/new'
+      fill_in :email, :with => "wrong_format"
+      fill_in :password, :with => 'test'
+      fill_in :password_confirmation, :with => 'test'
+      click_button "Sign up"
+      expect(page).to have_content("Email has an invalid format")
     end
 
     scenario "whilst signed in" do
@@ -22,6 +30,24 @@ include SessionHelpers
       click_link "Sign up"
       expect(page).to have_content("Hey test@test.com! Do you realise you are already signed in?")
     end
+
+    scenario "without an email address" do
+      visit '/users/new'
+      fill_in :username, :with => 'Test'
+      fill_in :password, :with => 'test'
+      fill_in :password_confirmation, :with => 'test'
+      click_button "Sign up"
+      expect(page).to have_content("Email must not be blank")
+    end
+
+    scenario "without a password" do
+      visit '/users/new'
+      fill_in :username, :with => 'Test'
+      fill_in :email, :with => 'test@test.com'
+      click_button "Sign up"
+      expect(page).to have_content("Please enter a password")
+    end
+
 
   end
 
@@ -54,7 +80,7 @@ include SessionHelpers
     end
 
     scenario "whilst signed in" do
-      sign_up
+      sign_in('test@test.com', 'test')
       click_link "Sign in"
       expect(page).to have_content("Hey test@test.com! Do you realise you are already signed in?")
     end

@@ -3,6 +3,7 @@ require 'data_mapper'
 require 'rack-flash'
 require 'sinatra/partial'
 require 'rest_client'
+require 'dm-validations'
 
 require_relative 'helpers/application'
 require_relative 'models/link'
