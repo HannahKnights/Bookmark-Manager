@@ -15,7 +15,7 @@ class User
   property :id, Serial
   property :email, String, :required => true, :unique => true, :format => :email_address
   property :username, String
-  property :password_digest, Text, :required => true, :message => "Please enter a password"
+  property :password_digest, Text, :required => true, :message => "Please enter a valid password"
   property :password_token, Text
   property :password_token_timestamp, Time
 
@@ -23,11 +23,7 @@ class User
 
   def password=(password)
     @password = password
-    if password_check
-      self.password_digest = BCrypt::Password.create(password)
-    else
-      self.password_digest = nil
-    end
+    password_check ? self.password_digest = BCrypt::Password.create(password) : self.password_digest = nil
   end
 
   def password_check
