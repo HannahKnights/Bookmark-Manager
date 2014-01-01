@@ -19,8 +19,8 @@ include SessionHelpers
     scenario "with an email that is an incorrect format" do
       visit '/users/new'
       fill_in :email, :with => "wrong_format"
-      fill_in :password, :with => 'test'
-      fill_in :password_confirmation, :with => 'test'
+      fill_in :password, :with => '123test'
+      fill_in :password_confirmation, :with => '123test'
       click_button "Sign up"
       expect(page).to have_content("Email has an invalid format")
     end
@@ -56,12 +56,12 @@ include SessionHelpers
 
     before(:each) do
       User.create(:email => "test@test.com",
-                  :password => 'test',
-                  :password_confirmation => 'test')
+                  :password => '123test',
+                  :password_confirmation => '123test')
     end
 
     scenario "with a password that doesn't match" do
-      lambda { sign_up('a@a.com', 'pass', 'wrong')}.should change(User, :count).by(0)
+      lambda { sign_up('a@a.com', '123pass', '123wrong')}.should change(User, :count).by(0)
       expect(current_path).to eq('/users')
       expect(page).to have_content("Password does not match the confirmation")
     end
@@ -69,7 +69,7 @@ include SessionHelpers
     scenario "with correct credentials" do
       visit '/'
       expect(page).not_to have_content("Welcome, test@test.com")
-      sign_in('test@test.com', 'test')
+      sign_in('test@test.com', '123test')
       expect(page).to have_content("Welcome, test@test.com")
     end
 
@@ -80,7 +80,7 @@ include SessionHelpers
     end
 
     scenario "whilst signed in" do
-      sign_in('test@test.com', 'test')
+      sign_in('test@test.com', '123test')
       click_link "Sign in"
       expect(page).to have_content("Hey test@test.com! Do you realise you are already signed in?")
     end
@@ -91,12 +91,12 @@ include SessionHelpers
 
     before(:each) do
       User.create(:email => 'test@test.com',
-                  :password => 'test',
-                  :password_confirmation => 'test')
+                  :password => '123test',
+                  :password_confirmation => '123test')
     end
 
     scenario 'while being signed in' do
-      sign_in('test@test.com', 'test')
+      sign_in('test@test.com', '123test')
       click_button "Sign out"
       expect(page).to have_content("Goodbye!")
       expect(page).not_to have_content("Welcome, test@test.com")

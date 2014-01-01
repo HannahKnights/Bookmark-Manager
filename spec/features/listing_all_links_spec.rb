@@ -8,12 +8,12 @@ feature "User browses the list of links" do
 
   before(:each) do
       User.create(:email => 'test@test.com',
-                  :password => 'test',
-                  :password_confirmation => 'test')
+                  :password => '123test',
+                  :password_confirmation => '123test')
     end
 
   scenario "when signed in" do
-    sign_in('test@test.com', 'test')
+    sign_in('test@test.com', '123test')
     visit '/'
     expect(page).to have_content("Welcome, test@test.com")
     fill_in :url, :with => "http://makersacademy.com"
@@ -31,7 +31,7 @@ feature "User browses the list of links" do
 
   scenario "filtered by a tag" do
     sign_up
-    sign_in('test@test.com', 'test')
+    sign_in('test@test.com', '123test')
     add_link("http://makersacademy.com/",
               "Makers Academy",
               ['education', 'ruby'])
@@ -45,7 +45,7 @@ feature "User browses the list of links" do
 
   scenario "which displays the user who submitted it" do
     sign_up
-    sign_in('test@test.com', 'test')
+    sign_in('test@test.com', '123test')
     add_link("http://makersacademy.com/",
               "Makers Academy",
               ['education', 'ruby'])
@@ -58,7 +58,7 @@ feature "User adds a new link" do
 
   scenario "when browsing the homepage" do
     sign_up
-    sign_in('test@test.com', 'test')
+    sign_in('test@test.com', '123test')
     expect(Link.count).to eq(0)
     visit '/'
     add_link("http://www.makersacademy.com/", "Makers Academy")
@@ -70,7 +70,7 @@ feature "User adds a new link" do
 
   scenario "with a few tags" do
     sign_up
-    sign_in('test@test.com', 'test')
+    sign_in('test@test.com', '123test')
     visit '/'
     add_link("http://makersacademy.com/",
               "Makers Academy",
@@ -82,7 +82,7 @@ feature "User adds a new link" do
 
   xscenario "without a url" do
     sign_up
-    sign_in('test@test.com', 'test')
+    sign_in('test@test.com', '123test')
     visit '/'
     add_link(nil,
             "Makers Academy", 

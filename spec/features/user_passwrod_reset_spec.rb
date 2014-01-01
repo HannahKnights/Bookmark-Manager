@@ -8,8 +8,8 @@ feature "User forgets their password" do
 
   before(:each) do
     User.create(:email => 'test@test.com',
-                :password => 'test',
-                :password_confirmation => 'test')
+                :password => '123test',
+                :password_confirmation => '123test')
   end
 
   scenario "which generates a password token" do
@@ -22,7 +22,7 @@ feature "User forgets their password" do
   end
 
   scenario "and doesn't have a password token before requesting one" do
-    sign_in('test@test.com', 'test')
+    sign_in('test@test.com', '123test')
     user = User.first
     expect(user.password_token).to be(nil)
   end
@@ -41,8 +41,8 @@ end
 
   before(:each) do
     User.create(:email => 'test@test.com',
-                :password => 'test',
-                :password_confirmation => 'test',
+                :password => '123test',
+                :password_confirmation => '123test',
                 :password_token => 'fake',
                 :password_token_timestamp => Time.new(2002, 10, 31, 0, 0, 0) 
                 )
@@ -62,8 +62,8 @@ end
     # puts user.password_token
     # User.first.stub('fake')
     visit '/users/reset_password/'+'fake'
-    fill_in :password, :with => 'test'
-    fill_in :password_confirmation, :with => 'test'
+    fill_in :password, :with => '123test'
+    fill_in :password_confirmation, :with => '123test'
     click_button "Submit"
     # user = User.first(:email => 'test@test.com')
     # puts user
@@ -72,16 +72,16 @@ end
 
   xscenario "after which the password token is reset to nil" do
     User.create(:email => 'another@test.com',
-                :password => 'test',
-                :password_confirmation => 'test',
+                :password => '123test',
+                :password_confirmation => '123test',
                 :password_token => 'fake',
                 :password_token_timestamp => Time.new(2002, 10, 31, 0, 0, 0) 
                 )
     user = User.first(:email => 'another@test.com')
     expect(user.password_token).not_to be(nil)
     visit '/users/reset_password/'+'fake'
-    fill_in :password, :with => 'test'
-    fill_in :password_confirmation, :with => 'test'
+    fill_in :password, :with => '123test'
+    fill_in :password_confirmation, :with => '123test'
     click_button "Submit"
     visit ('../')
     expect(user.password_token).to eq(nil)

@@ -8,7 +8,7 @@ feature "Favourite links" do
 
   scenario "are created by the user" do
     sign_up
-    sign_in('test@test.com', 'test')
+    sign_in('test@test.com', '123test')
     add_link("http://makersacademy.com",
             "Makers Academy",
             ['education'])
@@ -20,7 +20,7 @@ feature "Favourite links" do
 
   scenario "can be favourited by many users" do
     sign_up
-    sign_in('test@test.com', 'test')
+    sign_in('test@test.com', '123test')
     add_link("http://makersacademy.com",
             "Makers Academy", 
             ['educaiton'])
@@ -28,9 +28,9 @@ feature "Favourite links" do
     click_button "Add to favourites"
     click_button "Sign out"
     User.create(:email => 'another@another.com',
-                :password => 'test',
-                :password_confirmation => 'test')
-    sign_in('another@another.com', 'test')
+                :password => '123test',
+                :password_confirmation => '123test')
+    sign_in('another@another.com', '123test')
     click_button "Add to favourites"
     expect(page).to have_content("Makers Academy 2")
   end

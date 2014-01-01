@@ -31,7 +31,7 @@ class User
   end
 
   def password_check
-    @password.length > 0
+    /(?=.*[0-9])(?=.*[a-zA-Z])[a-zA-Z0-9]{6,12}/.match("#{@password}") != nil 
   end
 
   def self.authenticate(email, password)
