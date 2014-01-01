@@ -4,7 +4,7 @@ feature "User's profile page" do
 
   scenario "displays the tags a user has submitted" do
     sign_up
-    sign_in('test@test.com', 'test')
+    sign_in('test@test.com', '123test')
     add_link("http://makersacademy.com",
             "Makers Academy",
             ['education'])
@@ -14,7 +14,7 @@ feature "User's profile page" do
 
   scenario "displays the links that they've submitted" do
     sign_up
-    sign_in('test@test.com', 'test')
+    sign_in('test@test.com', '123test')
     add_link("http://makersacademy.com",
             "Makers Academy",
             ['education'])
