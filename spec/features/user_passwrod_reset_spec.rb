@@ -70,4 +70,22 @@ end
     expect(page).to have_content("Sorry your password token was issued too long ago")
   end
 
+  xscenario "after which the password token is reset to nil" do
+    User.create(:email => 'another@test.com',
+                :password => 'test',
+                :password_confirmation => 'test',
+                :password_token => 'fake',
+                :password_token_timestamp => Time.new(2002, 10, 31, 0, 0, 0) 
+                )
+    user = User.first(:email => 'another@test.com')
+    expect(user.password_token).not_to be(nil)
+    visit '/users/reset_password/'+'fake'
+    fill_in :password, :with => 'test'
+    fill_in :password_confirmation, :with => 'test'
+    click_button "Submit"
+    visit ('../')
+    expect(user.password_token).to eq(nil)
+  end
+
+
 end

@@ -8,7 +8,7 @@
 Current links:
 <ul>
   <% @links.each do |link| %>
-    <li><a href='<%= link.url %>'><%= link.title %></a>
+    <li><a href='<%= link.url %>' target='_blank'><%= link.title %></a>
     <% link_id = link.id %>
     <%= LinkUser.all.count(:link_id => link.id) %>
     <%= User.first(:id => link.user_id).email %>

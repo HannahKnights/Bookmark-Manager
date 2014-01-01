@@ -3,7 +3,7 @@
 <div>
 
 <form action='/sessions' method='post'>
-    
+
   <input type='text' name='email' placeholder='Email'>
   <input type='password' name='password' placeholder='Password'>
   <input type='submit' value='Sign in'>
@@ -13,3 +13,7 @@
 <a href='/users/reset_password'>Forgotten password?</a>
 
 </div>
+
+<% if current_user %>
+Hey <%= current_user.email %>! Do you realise you are already signed in?  
+<% end %>

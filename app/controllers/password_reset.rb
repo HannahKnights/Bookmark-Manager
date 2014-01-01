@@ -27,7 +27,9 @@ post '/change_password' do
   else
     flash[:notice] = "Sorry your password token was issued too long ago. Please follow the password reset process again"
   end
-    redirect to('../')
+  @user.update(:password_token => nil,
+              :password_token_timestamp => nil)
+  redirect to('../')
 end
 
 

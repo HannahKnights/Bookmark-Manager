@@ -7,7 +7,7 @@ include SessionHelpers
 
     scenario "creates a user" do
       lambda { sign_up }.should change(User, :count).by(1)
-      expect(page).to have_content("Welcome, test@test.com")
+      expect(page).to have_content("Welcome, Test")
       expect(User.first.email).to eq("test@test.com")
     end
 
@@ -15,6 +15,12 @@ include SessionHelpers
       lambda { sign_up }.should change(User, :count).by(1)
       lambda { sign_up }.should change(User, :count).by(0)
       expect(page).to have_content("This email is already taken")
+    end
+
+    scenario "whilst signed in" do
+      sign_up
+      click_link "Sign up"
+      expect(page).to have_content("Hey test@test.com! Do you realise you are already signed in?")
     end
 
   end
@@ -45,6 +51,12 @@ include SessionHelpers
       visit 'sessions/new'
       sign_in('test@test.com', 'wrong')
       expect(page).to have_content("The email or password are incorrect")
+    end
+
+    scenario "whilst signed in" do
+      sign_up
+      click_link "Sign in"
+      expect(page).to have_content("Hey test@test.com! Do you realise you are already signed in?")
     end
 
   end

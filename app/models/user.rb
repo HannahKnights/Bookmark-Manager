@@ -40,18 +40,17 @@ class User
   end
 
   def send_email
-  # mailgun_api_key = ENV['MAILGUN_API_KEY']
-  # mailgun_api_url = "https://api:#{mailgun_api_key}@api.mailgun.net/v2/app20531917.mailgun.org"
-
-  # RestClient.post mailgun_api_url+"/messages",
-  #     :from => "noreply@yourbookmarkmanager.co.uk",
-  #     :to => "info@linemagazine.co.uk",
-  #     :subject => "Password Reset",
-  #     :html => "To reset your bookmark manager password follow this <a href='https://afternoon-falls-1759.herokuapp.com/users/reset_password/#{url_safe_token}'>link</a>."
+  mailgun_api_key = ENV['MAILGUN_API_KEY']
+  mailgun_api_url = "https://api:#{mailgun_api_key}@api.mailgun.net/v2/app20531917.mailgun.org"
+  
+  RestClient.post mailgun_api_url+"/messages",
+    :from => "noreply@yourbookmarkmanager.co.uk",
+    :to => "#{self.email}",
+    :subject => "Password Reset",
+    :html => "To reset your bookmark manager password follow this <a href='https://afternoon-falls-1759.herokuapp.com/users/reset_password/#{url_safe_token}'>link</a>."
   end
 
   def time_check(password_token)
-    # user = first(:password_token => password_token)
     self.password_token_timestamp.between?(Time.now - 60*60, Time.now)
   end
 
