@@ -44,7 +44,7 @@ feature "User browses the list of links" do
     add_link("http://makersacademy.com/",
               "Makers Academy",
               ['education', 'ruby'])
-    expect(page).to have_content("Makers Academy education ruby 0 Test")
+    expect(page).to have_content("Makers Academy education ruby 1 Test")
   end
 
   scenario "which displays user, tags and description" do
@@ -54,7 +54,7 @@ feature "User browses the list of links" do
                               "Makers Academy",
                               "Excellent code school",
                               ['education', 'ruby'])
-    expect(page).to have_content("Makers Academy Excellent code school education ruby 0 Test")
+    expect(page).to have_content("Makers Academy Excellent code school education ruby 1 Test")
   end
 
   scenario "which displays tags which are clickable" do
@@ -68,12 +68,12 @@ feature "User browses the list of links" do
             "Wikipedia",
             "Online Encyclopedia",
             ['education', 'encyclopedia'])
-    expect(page).to have_content("Current links: Makers Academy Excellent code school education ruby 0 Test
-                                  Wikipedia Online Encyclopedia education encyclopedia 0 Test")
+    expect(page).to have_content("Makers Academy Excellent code school education ruby 1 Test")
+    expect(page).to have_content("Wikipedia Online Encyclopedia education encyclopedia 1 Test")
     page.first(:link, "education").click
-    expect(page). to have_content("Links tagged with 'education'
-                                  Makers Academy Excellent code school education ruby 0 Test
-                                  Wikipedia Online Encyclopedia education encyclopedia 0 Test")
+    expect(page). to have_content("Links tagged with 'education':
+                                  Makers Academy Excellent code school education ruby 1 Test
+                                  Wikipedia Online Encyclopedia education encyclopedia 1 Test")
   end
 
 end

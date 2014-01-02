@@ -107,6 +107,7 @@ include SessionHelpers
       click_button "Sign out"
       click_link "Sign in"
       expect(page).to have_field('email', :with => 'test@test.com')
+      expect(page).to have_field('password', :with => '123test')
     end
 
   end
