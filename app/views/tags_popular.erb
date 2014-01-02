@@ -1,0 +1,11 @@
+Popular tags:
+<ul>
+  <% top_tags = LinkTag.aggregate(:tag_id, :all.count).sort_by{|tag_id, freq| freq}.reverse.take(10) %>
+  <% top_tags.each do |tag_id, freq| %>
+
+    <% tag = Tag.first(:id => tag_id)%>
+
+    <li><%= tag.text %></li>
+  
+  <% end %>
+</ul>
