@@ -23,7 +23,7 @@ feature "Favourite links" do
     sign_in('test@test.com', '123test')
     add_link("http://makersacademy.com",
             "Makers Academy", 
-            ['educaiton'])
+            ['education'])
     visit '/'
     click_button "Add to favourites"
     click_button "Sign out"
@@ -32,7 +32,7 @@ feature "Favourite links" do
                 :password_confirmation => '123test')
     sign_in('another@another.com', '123test')
     click_button "Add to favourites"
-    expect(page).to have_content("Makers Academy 2")
+    expect(page).to have_content("Makers Academy education 2")
   end
 
 

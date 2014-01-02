@@ -6,16 +6,11 @@ include SessionHelpers
 
 feature "User browses the list of links" do
 
-  before(:each) do
-      User.create(:email => 'test@test.com',
-                  :password => '123test',
-                  :password_confirmation => '123test')
-    end
-
   scenario "when signed in" do
+    sign_up
     sign_in('test@test.com', '123test')
     visit '/'
-    expect(page).to have_content("Welcome, test@test.com")
+    expect(page).to have_content("Welcome, Test")
     fill_in :url, :with => "http://makersacademy.com"
     fill_in :title, :with => "Makers Academy"
     fill_in :description, :with => "Code School"
@@ -49,7 +44,7 @@ feature "User browses the list of links" do
     add_link("http://makersacademy.com/",
               "Makers Academy",
               ['education', 'ruby'])
-    expect(page).to have_content("Makers Academy 0 test@test.com")
+    expect(page).to have_content("Makers Academy education ruby 0 Test")
   end
 
   scenario "which displays user, tags and description" do
@@ -73,12 +68,12 @@ feature "User browses the list of links" do
             "Wikipedia",
             "Online Encyclopedia",
             ['education', 'encyclopedia'])
-    expect(page).to have_content("Current links: Makers Academy Excellent code school education ruby 0 test@test.com
-                                  Wikipedia Online Encyclopedia education encyclopedia 0 test@test.com")
+    expect(page).to have_content("Current links: Makers Academy Excellent code school education ruby 0 Test
+                                  Wikipedia Online Encyclopedia education encyclopedia 0 Test")
     page.first(:link, "education").click
     expect(page). to have_content("Links tagged with 'education'
-                                  Makers Academy Excellent code school education ruby 0 test@test.com
-                                  Wikipedia Online Encyclopedia education encyclopedia 0 test@test.com")
+                                  Makers Academy Excellent code school education ruby 0 Test
+                                  Wikipedia Online Encyclopedia education encyclopedia 0 Test")
   end
 
 end
