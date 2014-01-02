@@ -32,4 +32,14 @@ module SessionHelpers
     end
   end
 
+  def add_link_with_description(url, title, description, tags = [])
+    within('#new_link') do
+      fill_in 'url', :with => url
+      fill_in 'title', :with => title
+      fill_in 'description', :with => description  
+      fill_in 'tags', :with => tags.join(' ')
+      click_button 'Add link'
+    end
+  end  
+
 end
