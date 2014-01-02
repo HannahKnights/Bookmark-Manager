@@ -21,7 +21,6 @@ require_relative 'data_mapper_setup'
 
 enable :sessions
 set :session_secret, 'link_up_session_secret'
+set :expire_after, 2628000
 use Rack::Flash
 set :partial_template_engine, :erb
-# use Rack::Session::Cookie,:expire_after => 2628000,
-#                           :secret => 'user_details'

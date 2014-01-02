@@ -21,6 +21,10 @@ post '/bookmarks' do
               :description => description,
               :tags => tags)
   if Link.first(:user_id => user_id, :title => title, :url => url,)
+    link = Link.first(:user_id => user_id, :title => title, :url => url,)
+    LinkUser.create(:user_id => user_id,
+                   :link_id => link.id,
+                   :link_user_id => user_id)
   else
   destroy_tags(params["tags"])
   flash[:notice] = "Links must have a url, title and tag!"
