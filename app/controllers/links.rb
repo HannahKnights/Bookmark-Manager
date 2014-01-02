@@ -20,9 +20,7 @@ post '/bookmarks' do
               :url => url,
               :description => description,
               :tags => tags)
-  if Link.first(:user_id => user_id,
-              :title => title,
-              :url => url,)
+  if Link.first(:user_id => user_id, :title => title, :url => url,)
   else
   destroy_tags(params["tags"])
   flash[:notice] = "Links must have a url, title and tag!"

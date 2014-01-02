@@ -52,6 +52,35 @@ feature "User browses the list of links" do
     expect(page).to have_content("Makers Academy 0 test@test.com")
   end
 
+  scenario "which displays user, tags and description" do
+    sign_up
+    sign_in('test@test.com', '123test')
+    add_link_with_description("http://makersacademy.com/",
+                              "Makers Academy",
+                              "Excellent code school",
+                              ['education', 'ruby'])
+    expect(page).to have_content("Makers Academy Excellent code school education ruby 0 Test")
+  end
+
+  scenario "which displays tags which are clickable" do
+    sign_up
+    sign_in('test@test.com', '123test')
+    add_link_with_description("http://makersacademy.com/",
+                              "Makers Academy",
+                              "Excellent code school",
+                              ['education', 'ruby'])
+    add_link_with_description("http://wikipedia.com/",
+            "Wikipedia",
+            "Online Encyclopedia",
+            ['education', 'encyclopedia'])
+    expect(page).to have_content("Current links: Makers Academy Excellent code school education ruby 0 test@test.com
+                                  Wikipedia Online Encyclopedia education encyclopedia 0 test@test.com")
+    page.first(:link, "education").click
+    expect(page). to have_content("Links tagged with 'education'
+                                  Makers Academy Excellent code school education ruby 0 test@test.com
+                                  Wikipedia Online Encyclopedia education encyclopedia 0 test@test.com")
+  end
+
 end
 
 feature "User adds a new link" do

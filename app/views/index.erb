@@ -5,13 +5,24 @@
 <a href='/sessions/new'>Sign in</a>
 </div>
 
-Current links:
+<% if params[:text] != nil %>
+Links tagged with '<%= params[:text] %>'
+<% else %> Current links:
+<% end %>
+
 <ul>
   <% @links.each do |link| %>
     <li><a href='<%= link.url %>' target='_blank'><%= link.title %></a>
+    <%= link.description %>
     <% link_id = link.id %>
+    <% link_tags = LinkTag.all(:link_id => link_id) %>
+    <% link_tags.each do |link_tag| %>
+    <% tag_name = Tag.first(:id => link_tag.tag_id).text %>
+    <a href='/tags/<%= tag_name %>'><%= tag_name %></a>
+    <% end %>
     <%= LinkUser.all.count(:link_id => link.id) %>
-    <%= User.first(:id => link.user_id).email %>
+    <% user = User.first(:id => link.user_id) %>
+    <%= user.username != nil ? user.username : user.email %>  
     <form action='/favourites' method='post'>
     <input type='hidden' name='favourite_link' value='<%= link.id %>'>
     <input type='submit' value='Add to favourites'>
