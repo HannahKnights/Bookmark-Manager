@@ -25,6 +25,15 @@ include SessionHelpers
       expect(page).to have_content("Email has an invalid format")
     end
 
+    scenario "with a password that doesn't match" do
+      visit '/users/new'
+      fill_in :email, :with => "wrong_format"
+      fill_in :password, :with => '123test'
+      fill_in :password_confirmation, :with => '123teest'
+      click_button "Sign up"
+      expect(page).to have_content("Email has an invalid format")
+    end
+
     scenario "whilst signed in" do
       sign_up
       click_link "Sign up"
@@ -64,35 +73,40 @@ include SessionHelpers
 
   feature "User signs in" do
 
-    before(:each) do
-      User.create(:email => "test@test.com",
-                  :password => '123test',
-                  :password_confirmation => '123test')
-    end
-
-    scenario "with a password that doesn't match" do
-      lambda { sign_up('a@a.com', '123pass', '123wrong')}.should change(User, :count).by(0)
-      expect(current_path).to eq('/users')
-      expect(page).to have_content("Password does not match the confirmation")
-    end
-
     scenario "with correct credentials" do
       visit '/'
-      expect(page).not_to have_content("Welcome, test@test.com")
-      sign_in('test@test.com', '123test')
-      expect(page).to have_content("Welcome, test@test.com")
+      expect(page).not_to have_content("Welcome, Test")
+      sign_up
+      expect(page).to have_content("Welcome, Test")
     end
 
     scenario "with incorrect credentials they receive an error" do
+      sign_up
+      click_button "Sign out"
       visit 'sessions/new'
       sign_in('test@test.com', 'wrong')
       expect(page).to have_content("The email or password are incorrect")
     end
 
     scenario "whilst signed in" do
+      sign_up
       sign_in('test@test.com', '123test')
       click_link "Sign in"
       expect(page).to have_content("Hey test@test.com! Do you realise you are already signed in?")
+    end
+
+    scenario "after clicking the 'remember me' on a previous visit" do
+      sign_up
+      click_button "Sign out"
+      visit '/sessions/new'
+      fill_in 'email', :with => 'test@test.com'
+      fill_in 'password', :with => '123test'
+      check('remember_me')
+      click_button 'Sign in'      
+      expect(page).to have_content("Welcome, Test")
+      click_button "Sign out"
+      click_link "Sign in"
+      expect(page).to have_field('email', :with => 'test@test.com')
     end
 
   end

@@ -3,12 +3,21 @@
 <div>
 
 <form action='/sessions' method='post'>
-
+  <% if session[:remember_me_email] != nil %>
+  <input type='text' name='email' placeholder='Email' value='<%= session[:remember_me_email] %>'>
+  <% else %>
   <input type='text' name='email' placeholder='Email'>
+  <% end %>
+  <% if session[:remember_me_password] != nil %>
+  <input type='password' name='password' placeholder='Password' value='<%= session[:remember_me_password]%>'>
+  <% else %>
   <input type='password' name='password' placeholder='Password'>
+  <% end %>
   <input type='submit' value='Sign in'>
+  <input type='checkbox' name='remember_me'>Remember me?
 
 </form>
+
 
 <a href='/users/reset_password'>Forgotten password?</a>
 
