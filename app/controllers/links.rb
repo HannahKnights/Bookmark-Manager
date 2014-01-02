@@ -4,22 +4,28 @@ tag_string = tags.split(/[\s\W]/).map do |tag|
   end
 end
 
+def destroy_tags(tags)
+  tag_string = tags.split(/[\s+\W+]/).map do |tag|
+    new_tag = Tag.first(:text => tag)
+    new_tag.destroy
+  end
+end
+
 
 post '/bookmarks' do
-  url = params["url"]
-  title = params["title"]
-  description = params["description"]
-  user_id = session[:user_id]
+  url, title, description, user_id = params["url"], params["title"], params["description"], session[:user_id]
   tags = create_tag(params["tags"])
-  if Link.create(:user_id => user_id,
-                :title => title,
-                :url => url,
-                :description => description,
-                :tags => tags)
-  redirect to('/')
+  Link.create(:user_id => user_id,
+              :title => title,
+              :url => url,
+              :description => description,
+              :tags => tags)
+  if Link.first(:user_id => user_id,
+              :title => title,
+              :url => url,)
   else
-    flash.now[:errors] = @user.errors.full_messages
+  destroy_tags(params["tags"])
+  flash[:notice] = "Links must have a url, title and tag!"
   end
-
-
+  redirect to('/')
 end

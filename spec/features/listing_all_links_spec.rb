@@ -80,14 +80,25 @@ feature "User adds a new link" do
     expect(link.tags.map(&:text)).to include("ruby")
   end
 
-  xscenario "without a url" do
+  scenario "without filling in all the required fields" do
     sign_up
     sign_in('test@test.com', '123test')
     visit '/'
-    add_link(nil,
+    add_link("www.test.com",
+            nil, 
+            ['test'])
+    expect(page).to have_content("Links must have a url, title and tag!")
+    expect(page).not_to have_content("Available tags: test")
+  end
+
+  xscenario "with a valid url" do
+    sign_up
+    sign_in('test@test.com', '123test')
+    visit '/'
+    add_link("invalid_url",
             "Makers Academy", 
             ['educaiton'])
-    expect(page).to have_content("The URL and Title fields must be filled in")
+    expect(page).to have_content("Links must have a url, title and tag!")
   end
 
 end
