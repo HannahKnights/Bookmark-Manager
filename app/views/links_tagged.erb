@@ -2,8 +2,6 @@
 
 
   <ul>
-  
-    <form action='/favourites' method='post'>
 
     <% @links.each do |link| %>
 
@@ -27,6 +25,7 @@
       <p class='username'>submitted by
       <%= user.username != nil ? user.username : user.email %></p>  
       
+      <form action='/favourites' method='post' style=" display:inline!important;">
       <input type='hidden' name='favourite_link' value='<%= link.id %>'>
       <input type='submit' value='Add to favourites' class='favourites'>
       </form>

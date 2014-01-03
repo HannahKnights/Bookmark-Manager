@@ -10,10 +10,13 @@
 
     <% tag = Tag.first(:id => tag_id)%>
 
-    <div class='tag_display'><li><%= tag.text %></li></div>
+    <div class='tag_display'><li>
+
+    <a href='/tags/<%= tag.text %>' class='tag'><%= tag.text %></a>
+
+    </li></div>
   
   <% end %>
-
 
 </ul>
 
