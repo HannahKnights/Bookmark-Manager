@@ -11,23 +11,16 @@ def destroy_tags(tags)
   end
 end
 
-
 post '/bookmarks' do
-  url, title, description, user_id = params["url"], params["title"], params["description"], session[:user_id]
-  tags = create_tag(params["tags"])
-  Link.create(:user_id => user_id,
-              :title => title,
-              :url => url,
-              :description => description,
-              :tags => tags)
+  url, title, description, user_id, tags = params["url"], params["title"], params["description"], session[:user_id], create_tag(params["tags"])
+  Link.create(:user_id => user_id, :title => title, :url => url, :description => description, :tags => tags)
   if Link.first(:user_id => user_id, :title => title, :url => url,)
-    link = Link.first(:user_id => user_id, :title => title, :url => url,)
     LinkUser.create(:user_id => user_id,
-                   :link_id => link.id,
+                   :link_id => Link.first(:user_id => user_id, :title => title, :url => url,).id,
                    :link_user_id => user_id)
   else
-  destroy_tags(params["tags"])
-  flash[:notice] = "Links must have a url, title and tag!"
+    destroy_tags(params["tags"])
+    flash[:notice] = "Links must have a url, title and tag!"
   end
   redirect to('/')
 end

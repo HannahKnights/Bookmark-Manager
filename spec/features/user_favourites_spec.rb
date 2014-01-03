@@ -46,7 +46,7 @@ feature "Links" do
     sign_in('another@another.com', '123test')
     click_button "Add to favourites"
     click_link "My Favourites"
-    expect(page).to have_content("My Favourite Links 2 Makers Academy education")
+    expect(page).to have_content("My Favourite Links Makers Academy")
   end
 
 end
