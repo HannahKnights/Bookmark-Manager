@@ -34,6 +34,16 @@ h2 {
   letter-spacing: 0.1em;
 }
 
+h3 {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 120%;
+  font-style: none;
+  font-weight: 200;
+  color: white;
+  word-spacing: 0.3em;
+  letter-spacing: 0.1em;
+}
+
 
 #content{
   font-family: Geneva, Tahoma, Verdana, sans-serif;
@@ -93,6 +103,13 @@ o {
 .nav_button {
   padding: 10px;
   font-size: 120%;
+}
+
+/* Welcome Message */
+
+#welcome_message {
+  height: 40px;
+  margin-left: 30px; 
 }
 
 /* Main content (top) */
@@ -357,23 +374,88 @@ a {
   height: 50px;
   width: 100%;
   background-color: white;
+  border-top-style: solid;
+  border-top-width: medium;
+  border-top-color: blue;
 }
 
 
+.footer_nav {
+  font-family: Geneva, Tahoma, Verdana, sans-serif;
+  font-size: 100%;
+  color: blue;
+  background-color: white;
+  border: 1px solid blue;
+  padding: 10px, 4px;
+  margin-left: 10px;
+ }
 
+.footer_nav:hover {
+  color: white;
+  background-color: blue;
+  cursor: pointer;
+  box-shadow: 0 0 0;
+  opacity:1.0;
+  box-shadow:none;
+ }
+
+.footer_nav:visited {
+  box-shadow: 0 0 0;
+  opacity:1.0;
+  box-shadow:none;
+ }
+
+input.sign_out {
+  font-family: Geneva, Tahoma, Verdana, sans-serif;
+  font-size: 100%;
+  color: blue;
+  background-color: white;
+  border: 1px solid blue;
+  padding: 10px, 4px;
+  margin-left: 10px;
+ }
+
+input.sign_out:hover {
+  color: white;
+  background-color: blue;
+  cursor: pointer;
+  box-shadow: 0 0 0;
+  opacity:1.0;
+  box-shadow:none;
+ }
+
+input.sign_out:visited {
+  box-shadow: 0 0 0;
+  opacity:1.0;
+  box-shadow:none;
+ }
 
 
 #new_link {
 }
 
 #flash-container {
-
+  height: 40px;
+  margin-left: 30px;
 }
 
 #flash-notice {
-
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 120%;
+  font-style: none;
+  font-weight: 200;
+  color: white;
+  word-spacing: 0.3em;
+  letter-spacing: 0.1em;
 }
 
 #flash-errors {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 120%;
+  font-style: none;
+  font-weight: 200;
+  color: red;
+  word-spacing: 0.3em;
+  letter-spacing: 0.1em;
 
 }
