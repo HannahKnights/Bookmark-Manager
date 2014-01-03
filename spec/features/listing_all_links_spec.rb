@@ -10,12 +10,9 @@ feature "User browses the list of links" do
     sign_up
     sign_in('test@test.com', '123test')
     visit '/'
-    expect(page).to have_content("Welcome, Test")
-    fill_in :url, :with => "http://makersacademy.com"
-    fill_in :title, :with => "Makers Academy"
-    fill_in :description, :with => "Code School"
-    fill_in :tags, :with => "code, ruby"
-    click_button "Add link"
+    add_link('http://makersacademy.com', 
+            'Makers Academy',
+            ['education'])
     expect(page).to have_content("Makers Academy")
   end
 
@@ -38,15 +35,6 @@ feature "User browses the list of links" do
     expect(page).to have_content("Test")
   end
 
-  scenario "which displays the user who submitted it" do
-    sign_up
-    sign_in('test@test.com', '123test')
-    add_link("http://makersacademy.com/",
-              "Makers Academy",
-              ['education', 'ruby'])
-    expect(page).to have_content("1 Makers Academy education ruby submitted by Test")
-  end
-
   scenario "which displays user, tags and description" do
     sign_up
     sign_in('test@test.com', '123test')
@@ -54,10 +42,10 @@ feature "User browses the list of links" do
                               "Makers Academy",
                               "Excellent code school",
                               ['education', 'ruby'])
-    expect(page).to have_content("1 Makers Academy Excellent code school education ruby submitted by Test")
+    expect(page).to have_content("Makers Academy Excellent code school education ruby submitted by Test")
   end
 
-  scenario "which displays tags which are clickable" do
+  scenario "which displays tags that are clickable" do
     sign_up
     sign_in('test@test.com', '123test')
     add_link_with_description("http://makersacademy.com/",
@@ -68,8 +56,8 @@ feature "User browses the list of links" do
             "Wikipedia",
             "Online Encyclopedia",
             ['education', 'encyclopedia'])
-    expect(page).to have_content("1 Makers Academy Excellent code school education ruby submitted by Test")
-    expect(page).to have_content("1 Wikipedia Online Encyclopedia education encyclopedia submitted by Test")
+    expect(page).to have_content("Makers Academy Excellent code school education ruby submitted by Test")
+    expect(page).to have_content("Wikipedia Online Encyclopedia education encyclopedia submitted by Test")
     page.first(:link, "education").click
     expect(page). to have_content("Links tagged with 'education'
                                   1 Makers Academy Excellent code school education ruby submitted by Test
@@ -89,7 +77,6 @@ feature "User adds a new link" do
     expect(Link.count).to eq(1)
     link = Link.first
     expect(link.url).to eq("http://www.makersacademy.com/")
-    expect(link.title).to eq("Makers Academy")
   end
 
   scenario "with a few tags" do

@@ -92,7 +92,7 @@ include SessionHelpers
       sign_up
       sign_in('test@test.com', '123test')
       click_link "Sign in"
-      expect(page).to have_content("Hey test@test.com! Do you realise you are already signed in?")
+      expect(page).to have_content("Hey Test! Do you realise you are already signed in?")
     end
 
     scenario "after clicking the 'remember me' on a previous visit" do
@@ -114,13 +114,8 @@ include SessionHelpers
 
   feature "User signs out" do
 
-    before(:each) do
-      User.create(:email => 'test@test.com',
-                  :password => '123test',
-                  :password_confirmation => '123test')
-    end
-
     scenario 'while being signed in' do
+      sign_up
       sign_in('test@test.com', '123test')
       click_button "Sign out"
       expect(page).to have_content("Goodbye!")

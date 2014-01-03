@@ -1,7 +1,14 @@
 <div id='footer'>
 
-<% if current_user %>
-  <a href='/my_profile' class='button'>My Favourites</a>
-<% end %>
+  
+    <a href='/my_profile' class='footer_nav'>My Favourites</a>
+    
+
+     <form method='post' action='/sessions' style=" display:inline!important;">
+      
+      <input type='hidden' name='_method' value='delete'>
+      <input type="submit" value="Sign out" class='sign_out'>
+    
+    </form>       
 
 </div>

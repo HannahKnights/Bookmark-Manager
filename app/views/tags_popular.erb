@@ -1,23 +1,29 @@
+
 <div class='tag_title'><p class='title'>Popular tags</p></div>
 
 <div class='align_right'>
 
-<ul>
+  <ul>
 
+    <% top_tags = LinkTag.aggregate(:tag_id, :all.count).sort_by{|tag_id, freq| freq}.reverse.take(10) %>
+    <% top_tags.each do |tag_id, freq| %>
 
-  <% top_tags = LinkTag.aggregate(:tag_id, :all.count).sort_by{|tag_id, freq| freq}.reverse.take(10) %>
-  <% top_tags.each do |tag_id, freq| %>
+      <% tag = Tag.first(:id => tag_id)%>
 
-    <% tag = Tag.first(:id => tag_id)%>
+    <div class='tag_display'>
+      
+      <li>
 
-    <div class='tag_display'><li>
+        <a href='/tags/<%= tag.text %>' class='tag'>
+        <%= tag.text %>
+        </a>
 
-    <a href='/tags/<%= tag.text %>' class='tag'><%= tag.text %></a>
+      </li>
+    
+    </div>
+    
+    <% end %>
 
-    </li></div>
-  
-  <% end %>
-
-</ul>
+  </ul>
 
 </div>

@@ -1,23 +1,21 @@
 <div id='main_content'>
-<div id='column_left'>
+  
+  <div id='column_left'>
+  <% if params[:text] != nil %>
+    <%= partial :links_tagged %> 
+  <% else %>
+    <%= partial :links_popular %>
+  <% end %>
+  </div>
 
-<% if params[:text] != nil %>
-  <%= partial :links_tagged %> 
-<% else %>
-  <%= partial :links_popular %>
-<% end %>
+  <div id='column_right'>
+  <%= partial :tags_popular %>
+  </div>
 
-</div>
-
-<div id='column_right'>
-
-<%= partial :tags_popular %>
-</div>
-
-<div id='new_link'>
-<% if current_user %>
-  <%= partial :link_submit %>
-<% end %>
-</div>
+  <div id='new_link'>
+  <% if current_user %>
+    <%= partial :link_submit %>
+  <% end %>
+  </div>
 
 </div>

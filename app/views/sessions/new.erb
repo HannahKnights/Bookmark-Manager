@@ -1,28 +1,32 @@
+
 <h1>Please sign in</h1>
 
 <div>
 
-<form action='/sessions' method='post'>
-  <% if session[:remember_me_email] != nil %>
-  <input type='text' name='email' placeholder='Email' value='<%= session[:remember_me_email] %>'>
-  <% else %>
-  <input type='text' name='email' placeholder='Email'>
-  <% end %>
-  <% if session[:remember_me_password] != nil %>
-  <input type='password' name='password' placeholder='Password' value='<%= session[:remember_me_password]%>'>
-  <% else %>
-  <input type='password' name='password' placeholder='Password'>
-  <% end %>
-  <input type='submit' value='Sign in'>
-  <input type='checkbox' name='remember_me'>Remember me?
+  <form action='/sessions' method='post'>
+    
+    <% if session[:remember_me_email] != nil %>
+    <input type='text' name='email' placeholder='Email' value='<%= session[:remember_me_email] %>'>
+    <% else %>
+    <input type='text' name='email' placeholder='Email'>
+    <% end %>
+    
+    <% if session[:remember_me_password] != nil %>
+    <input type='password' name='password' placeholder='Password' value='<%= session[:remember_me_password]%>'>
+    <% else %>
+    <input type='password' name='password' placeholder='Password'>
+    <% end %>
 
-</form>
+    <input type='submit' value='Sign in'>
+    
+    <input type='checkbox' name='remember_me'>Remember me?
 
+  </form>
 
-<a href='/users/reset_password'>Forgotten password?</a>
+  <a href='/users/reset_password'>Forgotten password?</a>
 
 </div>
 
 <% if current_user %>
-Hey <%= current_user.email %>! Do you realise you are already signed in?  
+Hey <%= current_user.username != nil ? current_user.username : current_user.email %>! Do you realise you are already signed in?  
 <% end %>

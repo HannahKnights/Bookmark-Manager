@@ -1,9 +1,7 @@
+
 <div class='links_title'><p class='title'>Popular links</p></div>
 
-
 <ul>
-
-
 
 <% top_links = LinkUser.aggregate(:link_id, :all.count).sort_by{|link_id, likes| likes}.reverse.take(10) %>
 <% top_links.each do |link_id, likes| %>
@@ -12,30 +10,42 @@
 
   <li>
   
-  <div class='link_display'>
+    <div class='link_display'>
 
-    <div class='favourites_count'><%= likes %></div>
+      <div class='favourites_count'>
+      <%= likes %>
+      </div>
 
-    <a href='<%= link.url %>' target='_blank' class='link'><%= link.title %></a>
-    
-    <p class='description'><%= link.description %></p>
-    
-    <% link_tags = LinkTag.all(:link_id => link.id) %>
-    <%link_tags.each do |link_tag| %>
-      <% tag_name = Tag.first(:id => link_tag.tag_id).text %>
-      <a href='/tags/<%= tag_name %>' class='tag'><%= tag_name %></a>
-    <% end %>
+      <a href='<%= link.url %>' target='_blank' class='link'>
+      <%= link.title %>
+      </a>
+      
+      <p class='description'>
+      <%= link.description %>
+      </p>
+      
+      <% link_tags = LinkTag.all(:link_id => link.id) %>
+      <%link_tags.each do |link_tag| %>
+        <% tag_name = Tag.first(:id => link_tag.tag_id).text %>
+        <a href='/tags/<%= tag_name %>' class='tag'>
+        <%= tag_name %>
+        </a>
+      <% end %>
 
-  <% user = User.first(:id => link.user_id) %>
-  <p class='username'>submitted by
-  <%= user.username != nil ? user.username : user.email %></p>
+      <% user = User.first(:id => link.user_id) %>
+      <p class='username'>submitted by
+      <%= user.username != nil ? user.username : user.email %>
+      </p>
 
-        <form action='/favourites' method='post' style=" display:inline!important;">
+      <form action='/favourites' method='post' style=" display:inline!important;">
         <input type='hidden' name='favourite_link' value='<%= link.id %>'>
         <input type='submit' value='Add to favourites' class='favourites'>
       </form>
 
     </div>
+  
   </li>
+
 <% end %>
+
 </ul>

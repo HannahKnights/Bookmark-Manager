@@ -2,14 +2,17 @@
 <html>
   
   <head>
+    
     <title>Bookmark Manager</title>
     <link rel='stylesheet' type='text/css' href='/stylesheets/application.css'>
     <link rel='stylesheet' type='text/css' href='/stylesheets/reset.css'>
+
   </head>
 
   <body>
 
   <%= partial :header %>
+  <%= partial :welcome_message %>
 
   <div id='content'>
 
@@ -20,7 +23,9 @@
 
   </div>
 
-  <%= partial :footer %>
+  <% if current_user %>
+    <%= partial :footer %>
+  <% end %>
 
   </body>
 
