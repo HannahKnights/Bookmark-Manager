@@ -3,16 +3,22 @@
   
   <head>
     <title>Bookmark Manager</title>
-    <link rel="stylesheet" type="text/css" href="/css/application.css">
+    <link rel='stylesheet' type='text/css' href='/stylesheets/application.css'>
+    <link rel='stylesheet' type='text/css' href='/stylesheets/reset.css'>
   </head>
 
   <body>
 
   <%= partial :header %>
+
+  <div id='content'>
+
   <%= partial :flash %>
 
 
   <%= yield %>
+
+  </div>
 
   <%= partial :footer %>
 
