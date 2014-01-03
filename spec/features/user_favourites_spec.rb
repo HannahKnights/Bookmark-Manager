@@ -32,9 +32,8 @@ feature "Favourite links" do
                 :password_confirmation => '123test')
     sign_in('another@another.com', '123test')
     click_button "Add to favourites"
-    expect(page).to have_content("Makers Academy education 2")
+    expect(page).to have_content("2 Makers Academy education")
   end
-
 
 
 end

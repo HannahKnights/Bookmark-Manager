@@ -44,7 +44,7 @@ feature "User browses the list of links" do
     add_link("http://makersacademy.com/",
               "Makers Academy",
               ['education', 'ruby'])
-    expect(page).to have_content("Makers Academy education ruby 1 Test")
+    expect(page).to have_content("1 Makers Academy education ruby submitted by Test")
   end
 
   scenario "which displays user, tags and description" do
@@ -54,7 +54,7 @@ feature "User browses the list of links" do
                               "Makers Academy",
                               "Excellent code school",
                               ['education', 'ruby'])
-    expect(page).to have_content("Makers Academy Excellent code school education ruby 1 Test")
+    expect(page).to have_content("1 Makers Academy Excellent code school education ruby submitted by Test")
   end
 
   scenario "which displays tags which are clickable" do
@@ -68,12 +68,12 @@ feature "User browses the list of links" do
             "Wikipedia",
             "Online Encyclopedia",
             ['education', 'encyclopedia'])
-    expect(page).to have_content("Makers Academy Excellent code school education ruby 1 Test")
-    expect(page).to have_content("Wikipedia Online Encyclopedia education encyclopedia 1 Test")
+    expect(page).to have_content("1 Makers Academy Excellent code school education ruby submitted by Test")
+    expect(page).to have_content("1 Wikipedia Online Encyclopedia education encyclopedia submitted by Test")
     page.first(:link, "education").click
-    expect(page). to have_content("Links tagged with 'education':
-                                  Makers Academy Excellent code school education ruby 1 Test
-                                  Wikipedia Online Encyclopedia education encyclopedia 1 Test")
+    expect(page). to have_content("Links tagged with 'education'
+                                  1 Makers Academy Excellent code school education ruby submitted by Test
+                                  1 Wikipedia Online Encyclopedia education encyclopedia submitted by Test")
   end
 
 end
