@@ -46,6 +46,7 @@ h2 {
     width: 100%;
     height: 35%;
     padding-bottom: 40px;
+    overflow: auto;
 }
 
 
@@ -98,18 +99,23 @@ o {
 
 #main_content {
   width: 100%;
+  height: 100%;
+  overflow: auto;
+  padding-bottom: 150px;
 }
 
 #column_left {
   float: left;
   width: 65%;
   min-width: 600px;
+  padding-bottom: 10px;
 }
 
 #column_right {
   float: right;
   width: 35%;
   min-width: 300px;
+  padding-bottom: 10px;
 }
 
 .align_right {
@@ -131,6 +137,7 @@ o {
 .tag_display {
   padding: 10px;
   text-align: center;
+  line-height: 30px;
 }
 
 .links_title {
@@ -141,9 +148,10 @@ o {
   margin-left: 30px;
   margin-top: 20px;
   background-color: white;
-  padding: 5px;
+  padding: 10px;
   padding-left: 10px;
   margin-bottom: 20px;
+  line-height: 40px;
 }
 
 .title {
@@ -205,6 +213,7 @@ o {
   font-style: oblique;
   padding-right: 10px;
  }
+
 
 .username {
   display: inline;

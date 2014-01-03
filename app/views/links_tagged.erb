@@ -1,21 +1,39 @@
-Links tagged with '<%= params[:text] %>':
+<div class='links_title'><p class='title'>Links tagged with '<%= params[:text] %>'</p></div>
 
-<ul>
-  <% @links.each do |link| %>
-    <li><a href='<%= link.url %>' target='_blank'><%= link.title %></a>
-    <%= link.description %>
-    <% link_tags = LinkTag.all(:link_id => link.id) %>
-    <% link_tags.each do |link_tag| %>
-    <% tag_name = Tag.first(:id => link_tag.tag_id).text %>
-    <a href='/tags/<%= tag_name %>'><%= tag_name %></a>
-    <% end %>
-    <%= LinkUser.all.count(:link_id => link.id) %>
-    <% user = User.first(:id => link.user_id) %>
-    <%= user.username != nil ? user.username : user.email %>  
+
+  <ul>
+  
     <form action='/favourites' method='post'>
-    <input type='hidden' name='favourite_link' value='<%= link.id %>'>
-    <input type='submit' value='Add to favourites'>
-    </form>
-    </li>
+
+    <% @links.each do |link| %>
+
+    <div class='link_display'>
+
+      <li>
+
+      <div class='favourites_count'><%= LinkUser.all.count(:link_id => link.id) %></div>
+
+      <a href='<%= link.url %>' target='_blank' class='link'><%= link.title %></a>
+      
+      <p class='description'><%= link.description %></p>
+      
+      <% link_tags = LinkTag.all(:link_id => link.id) %>
+      <% link_tags.each do |link_tag| %>
+      <% tag_name = Tag.first(:id => link_tag.tag_id).text %>
+      <a href='/tags/<%= tag_name %>'class='tag'><%= tag_name %></a>
+      <% end %>
+      
+      <% user = User.first(:id => link.user_id) %>
+      <p class='username'>submitted by
+      <%= user.username != nil ? user.username : user.email %></p>  
+      
+      <input type='hidden' name='favourite_link' value='<%= link.id %>'>
+      <input type='submit' value='Add to favourites' class='favourites'>
+      </form>
+      </li>
+
+    </div>
+
   <% end %>
+  
 </ul>
