@@ -1,11 +1,20 @@
-Popular tags:
+<div class='tag_title'><p class='title'>Popular tags</p></div>
+
+<div class='align_right'>
+
 <ul>
+
+
   <% top_tags = LinkTag.aggregate(:tag_id, :all.count).sort_by{|tag_id, freq| freq}.reverse.take(10) %>
   <% top_tags.each do |tag_id, freq| %>
 
     <% tag = Tag.first(:id => tag_id)%>
 
-    <li><%= tag.text %></li>
+    <div class='tag_display'><li><%= tag.text %></li></div>
   
   <% end %>
+
+
 </ul>
+
+</div>

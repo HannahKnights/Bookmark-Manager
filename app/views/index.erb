@@ -1,9 +1,5 @@
-<h1>Welcome to bookmark manager</h1>
-
-<div id="user_management">
-<a href='/users/new'>Sign up</a>
-<a href='/sessions/new'>Sign in</a>
-</div>
+<div id='main_content'>
+<div id='column_left'>
 
 <% if params[:text] != nil %>
   <%= partial :links_tagged %> 
@@ -11,8 +7,13 @@
   <%= partial :links_popular %>
 <% end %>
 
-<%= partial :tags_popular %>
+</div>
 
+<div id='column_right'>
+
+<%= partial :tags_popular %>
+</div>
+</div>
 
 <% if current_user %>
   <%= partial :link_submit %>
