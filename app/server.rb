@@ -25,6 +25,6 @@ set :session_secret, 'link_up_session_secret'
 set :expire_after, 2628000
 use Rack::Flash
 set :partial_template_engine, :erb
-
+set :public_folder, 'public'
 # set :root, File.dirname(__FILE__)
 
