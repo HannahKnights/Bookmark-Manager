@@ -10,7 +10,7 @@
     <div class='link_display'>
 
       <div class='favourites_count'>
-      <%= LinkUser.all.count(:link_id => link.id) %>
+      <%= Favourite.all.count(:link_id => link.id) %>
       </div>
 
       <a href='<%= link.url %>' target='_blank' class='link'>
