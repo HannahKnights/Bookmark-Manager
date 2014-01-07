@@ -12,10 +12,3 @@ task :auto_migrate do
   DataMapper.auto_migrate!
   puts "Auto-migrate complete (data could have been lost)"
 end
-
-task :clear do
-  DataMapper.setup(:default, ENV['DATABASE_URL'] || "postgres://localhost/bookmark_manager_#{env}")
-  Link.destroy
-  User.destroy
-  Tag.destroy
-end

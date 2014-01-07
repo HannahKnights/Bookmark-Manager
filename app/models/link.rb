@@ -3,7 +3,6 @@ class Link
   include DataMapper::Resource
 
   has n, :tags, :through => Resource
-  has n, :users, :through => Resource
   belongs_to :user
   # has 1, :user, :through => Resource 
   
