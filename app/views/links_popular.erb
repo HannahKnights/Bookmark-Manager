@@ -3,7 +3,7 @@
 
 <ul>
 
-<% top_links = LinkUser.aggregate(:link_id, :all.count).sort_by{|link_id, likes| likes}.reverse.take(10) %>
+<% top_links = Favourite.aggregate(:link_id, :all.count).sort_by{|link_id, likes| likes}.reverse.take(10) %>
 <% top_links.each do |link_id, likes| %>
 
   <% link = Link.first(:id => link_id) %>
