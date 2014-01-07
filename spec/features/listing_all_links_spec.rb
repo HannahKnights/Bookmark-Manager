@@ -95,21 +95,21 @@ feature "User adds a new link" do
     sign_up
     sign_in('test@test.com', '123test')
     visit '/'
-    add_link("www.test.com",
+    add_link("http://test.com",
             nil, 
             ['test'])
     expect(page).to have_content("Links must have a url, title and tag!")
     expect(page).not_to have_content("Available tags: test")
   end
 
-  xscenario "with a valid url" do
+  scenario "without 'http://' in the url" do
     sign_up
     sign_in('test@test.com', '123test')
     visit '/'
-    add_link("invalid_url",
+    add_link("www.makersacademy.com",
             "Makers Academy", 
             ['educaiton'])
-    expect(page).to have_content("Links must have a url, title and tag!")
+    find_link('Makers Academy')[:href].should == 'http://www.makersacademy.com'
   end
 
 end

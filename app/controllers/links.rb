@@ -11,8 +11,15 @@ def destroy_tags(tags)
   end
 end
 
+def url_checker(url)
+  unless url.start_with? 'http://'
+    url = 'http://' + url
+  end
+  url
+end
+
 post '/bookmarks' do
-  url, title, description, user_id, tags = params["url"], params["title"], params["description"], session[:user_id], create_tag(params["tags"])
+  url, title, description, user_id, tags = url_checker(params["url"]), params["title"], params["description"], session[:user_id], create_tag(params["tags"])
   Link.create(:user_id => user_id, :title => title, :url => url, :description => description, :tags => tags)
   if Link.first(:user_id => user_id, :title => title, :url => url,)
     LinkUser.create(:user_id => user_id,
