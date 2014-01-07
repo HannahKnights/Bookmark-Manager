@@ -5,6 +5,7 @@ require 'sinatra/partial'
 require 'rest_client'
 require 'dm-validations'
 
+
 require_relative 'helpers/application'
 require_relative 'models/link'
 require_relative 'models/tag'
@@ -24,5 +25,6 @@ set :session_secret, 'link_up_session_secret'
 set :expire_after, 2628000
 use Rack::Flash
 set :partial_template_engine, :erb
-# set :static, true
-# set :public_folder, "#{File.dirname(_FILE_)}/public"
+
+# set :root, File.dirname(__FILE__)
+
