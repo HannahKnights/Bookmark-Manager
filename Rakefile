@@ -14,6 +14,7 @@ task :auto_migrate do
 end
 
 task :clear do
+  DataMapper.setup(:default, ENV['DATABASE_URL'] || "postgres://localhost/bookmark_manager_#{env}")
   Link.destroy
   User.destroy
   Tag.destroy
