@@ -9,6 +9,8 @@ The approach taken to testing the app involved RSpec, Capybara for integration t
 
 This application was modelled with Users, Favourites, Links and Tags classes, which was a good exercise in beginning to explore database associations. 
 
+Heroku was used to deploy the application, you can view it online [here](http://afternoon-falls-1759.herokuapp.com).
+
 Created while studying at [Makers Academy](http://www.makersacademy.com)
 
 #### How to Use
