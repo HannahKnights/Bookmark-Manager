@@ -7,9 +7,11 @@ This simple application allows you to add and organise your links and 'favourite
 
 The approach taken to testing the app involved RSpec, Capybara for integration testing and DataMapper cleaner to maintain a fresh database during testing.
 
-This application was modelled with Users, Favourites, Links and Tags classes, which was a good exercise in beginning to explore database associations. 
+This application was modelled with Users, Favourites, Links and Tags classes, which was a good exercise in beginning to explore database associations.
 
-Heroku was used to deploy the application, you can view it online [here](http://afternoon-falls-1759.herokuapp.com).
+The app is in beta mode while I improve the front-end, until then... 
+
+![alt text](https://raw.github.com/HannahKnights/Bookmark-Manager/master/public/images/Screen%20Shot%202014-03-04%20at%2011.43.22.png "Link-Up")
 
 Created while studying at [Makers Academy](http://www.makersacademy.com)
 
